@@ -11,17 +11,27 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
+import fileinput
+import os
+import csv
 
+datos = []
+with open("data.csv", "r") as archivo_datos:
+    lector = csv.reader(archivo_datos, delimiter="\t")
+    for fila in lector:
+        datos.append(fila)
 
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
-
     Rta/
     214
-
     """
-    return
+    suma = 0
+    for i in datos:
+        suma += int(i[1])
+
+    return suma
 
 
 def pregunta_02():
@@ -39,7 +49,15 @@ def pregunta_02():
     ]
 
     """
-    return
+    letras={}
+    for i in datos:
+        if i[0] in letras:
+            letras[i[0]] += 1
+        else:
+            letras[i[0]] = 1
+    letras = sorted(letras.items())
+    
+    return letras
 
 
 def pregunta_03():
@@ -57,7 +75,16 @@ def pregunta_03():
     ]
 
     """
-    return
+    letras={}
+    for i in datos:
+        if i[0] in letras:
+            letras[i[0]] +=int(i[1])
+        else:
+            letras[i[0]] = int(i[1])
+    letras = sorted(letras.items())
+    
+    return letras
+
 
 
 def pregunta_04():
@@ -82,8 +109,14 @@ def pregunta_04():
     ]
 
     """
-    return
-
+    meses={}
+    for i in datos:
+        mes = i[2].split("-")[1]
+        if mes in meses:
+            meses[mes] += 1
+        else:
+            meses[mes] = 1
+    return sorted(meses.items())
 
 def pregunta_05():
     """
@@ -100,7 +133,17 @@ def pregunta_05():
     ]
 
     """
-    return
+    letras={}
+    for i in datos:
+        if i[0] in letras:
+            if int(i[1]) > letras[i[0]][0]:
+                letras[i[0]][0] = int(i[1])
+            if int(i[1]) < letras[i[0]][1]:
+                letras[i[0]][1] = int(i[1])
+        else:
+            letras[i[0]] = [int(i[1]),int(i[1])]
+    letras = [(k,v[0],v[1]) for k,v in letras.items()]
+    return sorted(letras, key=lambda x: x[0])
 
 
 def pregunta_06():
@@ -125,7 +168,24 @@ def pregunta_06():
     ]
 
     """
-    return
+    diccionario={}
+    for i in datos:
+        cadena= i[4].split(",")
+        for j in cadena:
+            clave= str(j.split(":")[0])
+            valor= int(j.split(":")[1])
+            
+            if clave in diccionario:
+                if valor > diccionario[clave][1]:
+                    diccionario[clave][1] =  valor
+                if valor < diccionario[clave][0]:
+                    diccionario[clave][0] =  valor
+            else:
+                diccionario[clave] = [valor,valor]
+
+    letras = [(k,v[0],v[1]) for k,v in diccionario.items()]
+    return sorted(letras, key=lambda x: x[0])
+
 
 
 def pregunta_07():
@@ -149,7 +209,14 @@ def pregunta_07():
     ]
 
     """
-    return
+    numeros={}
+    for i in datos:
+        if i[1] in numeros:
+            numeros[i[1]].append(i[0])
+        else:
+            numeros[i[1]] = [i[0]]
+    numeros=  sorted(numeros.items())
+    return numeros
 
 
 def pregunta_08():
@@ -174,7 +241,16 @@ def pregunta_08():
     ]
 
     """
-    return
+    numeros={}
+    for i in datos:
+        if i[1] in numeros:
+            if i[0] not in numeros[i[1]]:
+                numeros[i[1]].append(i[0])
+                numeros[i[1]].sort()
+        else:
+            numeros[i[1]] = [i[0]]
+    numeros=  sorted(numeros.items())
+    return numeros
 
 
 def pregunta_09():
@@ -197,7 +273,19 @@ def pregunta_09():
     }
 
     """
-    return
+    diccionario={}
+    for i in datos:
+        cadena= i[4].split(",")
+        for j in cadena:
+            clave= str(j.split(":")[0])
+            valor= int(j.split(":")[1])
+            
+            if clave in diccionario:
+                diccionario[clave] += 1
+            else:
+                diccionario[clave] = 1
+    diccionario = dict(sorted(diccionario.items()))
+    return diccionario
 
 
 def pregunta_10():
@@ -215,10 +303,11 @@ def pregunta_10():
         ("E", 2, 3),
         ("E", 3, 3),
     ]
-
-
     """
-    return
+    lista=[]
+    for i in datos:
+        lista.append((i[0],len(i[3].split(",")),len(i[4].split(","))))
+    return lista
 
 
 def pregunta_11():
@@ -236,10 +325,17 @@ def pregunta_11():
         "f": 134,
         "g": 35,
     }
-
-
     """
-    return
+    diccionario={}
+    for i in datos:
+        cadena= i[3].split(",")
+        for j in cadena:
+            if j in diccionario:
+                diccionario[j] += int(i[1])
+            else:
+                diccionario[j] = int(i[1])
+    diccionario = dict(sorted(diccionario.items()))
+    return diccionario
 
 
 def pregunta_12():
@@ -257,4 +353,14 @@ def pregunta_12():
     }
 
     """
-    return
+    diccionario={}
+    for i in datos:
+        cadena= i[4].split(",")
+        for j in cadena:
+            valor= int(j.split(":")[1])
+            if i[0] in diccionario:
+                diccionario[i[0]] += valor
+            else:
+                diccionario[i[0]] = valor
+    diccionario = dict(sorted(diccionario.items()))
+    return diccionario
