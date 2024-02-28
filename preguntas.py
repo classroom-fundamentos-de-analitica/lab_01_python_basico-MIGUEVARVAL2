@@ -232,7 +232,7 @@ def pregunta_07():
     numeros=  sorted(numeros.items())
     return numeros
 
-print(pregunta_07())
+
 
 def pregunta_08():
     """
@@ -260,7 +260,7 @@ def pregunta_08():
     for i in datos:
         valor=int(i[1])
         if valor in numeros:
-            if valor not in numeros[valor]:
+            if i[0] not in numeros[valor]:
                 numeros[valor].append(i[0])
                 numeros[valor].sort()
         else:
