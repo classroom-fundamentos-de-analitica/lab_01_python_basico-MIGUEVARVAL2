@@ -208,16 +208,31 @@ def pregunta_07():
         (9, ["A", "B", "E", "A", "A", "C"]),
     ]
 
+    [
+        ('0', ['C']), 
+        ('1', ['E', 'B', 'E']), 
+        ('2', ['A', 'E']), 
+        ('3', ['A', 'B', 'D', 'E', 'E', 'D']), 
+        ('4', ['E', 'B']), 
+        ('5', ['B', 'C', 'D', 'D', 'E', 'E', 'E']), 
+        ('6', ['C', 'E', 'A', 'B']), 
+        ('7', ['A', 'C', 'E', 'D']), 
+        ('8', ['E', 'D', 'E', 'A', 'B']), 
+        ('9', ['A', 'B', 'E', 'A', 'A', 'C'])
+        ]
+
     """
     numeros={}
     for i in datos:
-        if i[1] in numeros:
-            numeros[i[1]].append(i[0])
+        valor=int(i[1])
+        if valor in numeros:
+            numeros[valor].append(i[0])
         else:
-            numeros[i[1]] = [i[0]]
+            numeros[valor] = [i[0]]
     numeros=  sorted(numeros.items())
     return numeros
 
+print(pregunta_07())
 
 def pregunta_08():
     """
@@ -243,12 +258,13 @@ def pregunta_08():
     """
     numeros={}
     for i in datos:
-        if i[1] in numeros:
-            if i[0] not in numeros[i[1]]:
-                numeros[i[1]].append(i[0])
-                numeros[i[1]].sort()
+        valor=int(i[1])
+        if valor in numeros:
+            if valor not in numeros[valor]:
+                numeros[valor].append(i[0])
+                numeros[valor].sort()
         else:
-            numeros[i[1]] = [i[0]]
+            numeros[valor] = [i[0]]
     numeros=  sorted(numeros.items())
     return numeros
 
